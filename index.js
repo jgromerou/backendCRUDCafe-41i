@@ -3,6 +3,8 @@ import cors from 'cors';
 import * as dotenv from 'dotenv';
 import morgan from 'morgan';
 import path from 'path';
+import './src/database/dbConnection';
+import productosRouter from './src/routes/productos.routes';
 
 dotenv.config();
 
@@ -26,6 +28,9 @@ app.use(morgan('dev')); //me da info extra en la terminal
 app.use(express.static(path.join(__dirname, '/public')));
 
 //rutas
-app.get('/prueba', (req, res) => {
-  res.send('Esta es una prueba de mi ruta GET de prueba');
-});
+// app.get('/prueba', (req, res) => {
+//   res.send('Esta es una prueba de mi ruta GET de prueba');
+// });
+
+//http://localhost:4000/apicafe/prueba
+app.use('/apicafe', productosRouter);
