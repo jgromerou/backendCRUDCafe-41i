@@ -1,8 +1,12 @@
 import { Router } from 'express';
-import { controladorPrueba } from '../controllers/productos.controllers';
+import {
+  controladorPrueba,
+  crearProducto,
+} from '../controllers/productos.controllers';
 
 const router = new Router();
 
 router.route('/prueba').get(controladorPrueba);
+router.route('/productos').post(crearProducto);
 
 export default router;
