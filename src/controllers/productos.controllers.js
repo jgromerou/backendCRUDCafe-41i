@@ -1,3 +1,4 @@
+import { validationResult } from 'express-validator';
 import Producto from '../models/producto';
 
 export const controladorPrueba = (req, res) => {
@@ -6,15 +7,26 @@ export const controladorPrueba = (req, res) => {
 
 export const crearProducto = async (req, res) => {
   try {
+    //trabajar con los resultados de la validación
+    const errors = validationResult(req);
+
+    //errors.isEmpty(); true: si está vacío, es false tiene errores
+    //quiero saber si hay errores
+    if (!errors.isEmpty()) {
+      return res.status(400).json({
+        errors: errors.array(),
+      });
+    }
+
     const productoNuevo = new Producto(req.body);
     await productoNuevo.save();
     res.status(201).json({
-      message: 'El producto fue creado correctamente.',
+      mensaje: 'El producto fue creado correctamente.',
     });
   } catch (error) {
     console.log(error);
-    res.status(404).json({
-      message: 'Error al intentar crear un producto',
+    res.status(400).json({
+      mensaje: 'Error no se pudo crear un producto',
     });
   }
 };
@@ -27,7 +39,7 @@ export const obtenerListaProductos = async (req, res) => {
   } catch (error) {
     console.log(error);
     res.status(404).json({
-      message: 'Error al intentar listar los productos',
+      mensaje: 'Error al intentar listar los productos',
     });
   }
 };
@@ -40,7 +52,7 @@ export const obtenerProducto = async (req, res) => {
   } catch (error) {
     console.log(error);
     res.status(404).json({
-      message: 'Error al intentar obtener el producto',
+      mensaje: 'Error al intentar obtener el producto',
     });
   }
 };
@@ -55,7 +67,7 @@ export const borrarProducto = async (req, res) => {
   } catch (error) {
     console.log(error);
     res.status(404).json({
-      message: 'Error, no se pudo borrar el producto.',
+      mensaje: 'Error, no se pudo borrar el producto.',
     });
   }
 };
@@ -70,7 +82,7 @@ export const editarProducto = async (req, res) => {
   } catch (error) {
     console.log(error);
     res.status(404).json({
-      message: 'Error, no se pudo editar el producto.',
+      mensaje: 'Error, no se pudo editar el producto.',
     });
   }
 };
