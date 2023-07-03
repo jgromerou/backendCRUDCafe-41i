@@ -18,3 +18,16 @@ export const crearProducto = async (req, res) => {
     });
   }
 };
+
+export const obtenerListaProductos = async (req, response) => {
+  try {
+    //buscar en la BD la collection de productos
+    const productos = await Producto.find();
+    response.status(200).json(productos);
+  } catch (error) {
+    console.log(error);
+    res.status(404).json({
+      message: 'Error al intentar listar los productos',
+    });
+  }
+};
