@@ -25,3 +25,16 @@ export const crearUsuario = async (req, res) => {
     });
   }
 };
+
+export const obtenerListaUsuarios = async (req, res) => {
+  try {
+    //buscar en la BD la collection de usuarios
+    const usuarios = await Usuario.find();
+    res.status(200).json(usuarios);
+  } catch (error) {
+    console.log(error);
+    res.status(404).json({
+      mensaje: 'Error al intentar listar los usuarios',
+    });
+  }
+};
