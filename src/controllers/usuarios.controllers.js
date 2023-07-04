@@ -38,3 +38,16 @@ export const obtenerListaUsuarios = async (req, res) => {
     });
   }
 };
+
+export const obtenerUsuario = async (req, res) => {
+  try {
+    //buscar en la BD un documento Usuario mediante el id
+    const usuario = await Usuario.findById(req.params.id);
+    res.status(200).json(usuario);
+  } catch (error) {
+    console.log(error);
+    res.status(404).json({
+      mensaje: 'Error al intentar obtener el usuario',
+    });
+  }
+};
