@@ -2,21 +2,22 @@ import Usuario from '../models/usuario';
 
 export const crearUsuario = async (req, res) => {
   try {
-    //   //trabajar con los resultados de la validación
-    //   const errors = validationResult(req);
+    const { email } = new Usuario(req.body);
 
-    //   //errors.isEmpty(); true: si está vacío, es false tiene errores
-    //   //quiero saber si hay errores
-    //   if (!errors.isEmpty()) {
-    //     return res.status(400).json({
-    //       errors: errors.array(),
-    //     });
-    //   }
+    let usuario = await Usuario.findOne({ email });
+    console.log(usuario);
 
-    const usuarioNuevo = new Usuario(req.body);
-    await usuarioNuevo.save();
+    if (usuario) {
+      return res.status(200).send({
+        mensaje: 'ya existe un usuario con el correo electrónico enviado',
+      });
+    }
+    usuario = new Usuario(req.body);
+    await usuario.save();
     res.status(201).json({
-      mensaje: 'El usuario fue creado correctamente.',
+      mensaje: 'usuario creado.',
+      nombre: usuario.nombre,
+      uid: usuario._id,
     });
   } catch (error) {
     console.log(error);
