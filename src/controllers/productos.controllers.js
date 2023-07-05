@@ -1,5 +1,6 @@
 import { validationResult } from 'express-validator';
 import Producto from '../models/producto';
+import resultadoValidacion from '../helpers/validarProducto';
 
 export const controladorPrueba = (req, res) => {
   res.send('Esta es una prueba de mi ruta GET de prueba');
@@ -7,17 +8,6 @@ export const controladorPrueba = (req, res) => {
 
 export const crearProducto = async (req, res) => {
   try {
-    //trabajar con los resultados de la validación
-    const errors = validationResult(req);
-
-    //errors.isEmpty(); true: si está vacío, es false tiene errores
-    //quiero saber si hay errores
-    if (!errors.isEmpty()) {
-      return res.status(400).json({
-        errors: errors.array(),
-      });
-    }
-
     const productoNuevo = new Producto(req.body);
     await productoNuevo.save();
     res.status(201).json({
