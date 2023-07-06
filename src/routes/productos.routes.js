@@ -7,7 +7,7 @@ import {
   obtenerListaProductos,
   obtenerProducto,
 } from '../controllers/productos.controllers';
-import validarProducto from '../helpers/resultadoValidacion';
+import validarProducto from '../helpers/validarProducto';
 
 const router = new Router();
 

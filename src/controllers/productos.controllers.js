@@ -1,6 +1,4 @@
-import { validationResult } from 'express-validator';
 import Producto from '../models/producto';
-import resultadoValidacion from '../helpers/validarProducto';
 
 export const controladorPrueba = (req, res) => {
   res.send('Esta es una prueba de mi ruta GET de prueba');
