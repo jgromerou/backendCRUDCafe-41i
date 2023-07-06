@@ -31,6 +31,16 @@ const validarProducto = [
     .withMessage(
       'La imagen debe ser una URL válida, terminada en png,jpg,jpeg,gif y svg.'
     ),
+  check('descripcion')
+    .notEmpty()
+    .withMessage('La descripción del producto es obligatorio.')
+    .isLength({
+      min: 2,
+      max: 300,
+    })
+    .withMessage(
+      'La descripción del producto debe contener entre 2 y 300 caracteres.'
+    ),
   check('categoria')
     .notEmpty()
     .withMessage('La categoria es un dato obligatorio.')
