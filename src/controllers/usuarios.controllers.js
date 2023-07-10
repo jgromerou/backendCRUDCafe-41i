@@ -58,3 +58,39 @@ export const obtenerUsuario = async (req, res) => {
     });
   }
 };
+
+export const login = async (req, res) => {
+  try {
+    //extraer el email y password del req.body
+    const { email, password } = req.body;
+
+    //verificamos que el email existe en la bd
+    let usuario = await Usuario.findOne({ email });
+
+    if (!usuario) {
+      //si el usuario no existe
+      return res.status(404).json({
+        mensaje: 'Correo o password inválido - correo',
+      });
+    }
+
+    //verificar si las constraseñas coinciden
+    const passwordValido = bcrypt.compareSync(password, usuario.password); //deuvleve un true si los datos coinciden
+    if (!passwordValido) {
+      return res.status(404).json({
+        mensaje: 'Correo o password inválido - password',
+      });
+    }
+
+    //responder el frontend con el usuario válido
+    res.status(200).json({
+      mensaje: 'El usuario es correcto',
+      nombreUsuario: usuario.nombreUsuario,
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(404).json({
+      mensaje: 'Usuario o Password incorrecto',
+    });
+  }
+};
