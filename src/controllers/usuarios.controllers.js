@@ -1,3 +1,4 @@
+import generarJWT from '../helpers/token-sign';
 import Usuario from '../models/usuario';
 import bcrypt from 'bcrypt';
 
@@ -82,11 +83,15 @@ export const login = async (req, res) => {
       });
     }
 
+    //generar el token (identificador de este usuario)d
+    const token = await generarJWT(usuario.nombreUsuario);
+
     //responder el frontend con el usuario válido
     res.status(200).json({
       mensaje: 'El usuario es correcto',
       nombreUsuario: usuario.nombreUsuario,
       rol: usuario.rol,
+      token,
     });
   } catch (error) {
     console.log(error);
