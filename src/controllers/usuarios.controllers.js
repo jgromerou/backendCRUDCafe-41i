@@ -86,6 +86,7 @@ export const login = async (req, res) => {
     res.status(200).json({
       mensaje: 'El usuario es correcto',
       nombreUsuario: usuario.nombreUsuario,
+      rol: usuario.rol,
     });
   } catch (error) {
     console.log(error);
