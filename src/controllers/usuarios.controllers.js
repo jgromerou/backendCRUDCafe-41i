@@ -1,3 +1,5 @@
+
+import emailSend from '../helpers/emailsend';
 import generarJWT from '../helpers/token-sign';
 import Usuario from '../models/usuario';
 import bcrypt from 'bcrypt';
@@ -26,6 +28,7 @@ export const crearUsuario = async (req, res) => {
       nombre: usuario.nombre,
       uid: usuario._id,
     });
+    //emailSend();
   } catch (error) {
     console.log(error);
     res.status(400).json({
