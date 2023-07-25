@@ -8,7 +8,7 @@ const emailSend = () => {
         from_name: 'Yumyum',
         user_name: 'José Jerez',
         destinatario: 'yumyum.dev.notification@gmail.com',
-        message: 'Gracias por usar nuestros servicios. Deseamos que tengas una linda experiencia con nosotros.'
+        message: 'Gracias por usar nuestros servicios. Deseamos que tengas una buena experiencia con nosotros.'
     };
      
     emailjs.send('service_58bhdtn', 'template_f685fp9', templateParams)
