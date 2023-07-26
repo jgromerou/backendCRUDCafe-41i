@@ -1,4 +1,3 @@
-
 import emailSend from '../helpers/emailsend';
 import generarJWT from '../helpers/token-sign';
 import Usuario from '../models/usuario';
@@ -70,7 +69,7 @@ export const login = async (req, res) => {
 
     //verificamos que el email existe en la bd
     let usuario = await Usuario.findOne({ email });
-
+    const { nombreUsuario, rol } = usuario;
     if (!usuario) {
       //si el usuario no existe
       return res.status(404).json({
@@ -87,13 +86,13 @@ export const login = async (req, res) => {
     }
 
     //generar el token (identificador de este usuario)d
-    const token = await generarJWT(usuario.nombreUsuario);
+    const token = await generarJWT({ nombreUsuario, rol });
 
     //responder el frontend con el usuario válido
     res.status(200).json({
       mensaje: 'El usuario es correcto',
-      nombreUsuario: usuario.nombreUsuario,
-      rol: usuario.rol,
+      nombreUsuario,
+      rol,
       token,
     });
   } catch (error) {

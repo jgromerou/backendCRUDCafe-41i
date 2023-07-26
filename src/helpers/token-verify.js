@@ -13,7 +13,8 @@ const validarJWT = (req, res, next) => {
   // si el token existe
   try {
     const payload = jwt.verify(token, process.env.SECRET_JWT);
-    req.nombreUsuario = payload.nombreUsuario;
+    console.log(payload);
+    req.usuario = payload.usuario;
   } catch (error) {
     console.log(error);
     return res.status(401).json({

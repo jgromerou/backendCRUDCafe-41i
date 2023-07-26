@@ -11,6 +11,7 @@ const resultadoValidacion = (req, res, next) => {
       errors: errors.array(),
     });
   }
+
   //continuar con la ejecución
   next();
 };
