@@ -1,4 +1,4 @@
-import emailSend from '../helpers/emailsend';
+//import emailSend from '../helpers/emailsend';
 import generarJWT from '../helpers/token-sign';
 import Usuario from '../models/usuario';
 import bcrypt from 'bcrypt';
