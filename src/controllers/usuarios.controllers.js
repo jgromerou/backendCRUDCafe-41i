@@ -1,4 +1,3 @@
-
 import emailSend from '../helpers/emailsend';
 import generarJWT from '../helpers/token-sign';
 import Usuario from '../models/usuario';
@@ -9,7 +8,6 @@ export const crearUsuario = async (req, res) => {
     const { email, password } = new Usuario(req.body);
 
     let usuario = await Usuario.findOne({ email });
-    console.log(usuario);
 
     if (usuario) {
       return res.status(200).send({
@@ -102,4 +100,17 @@ export const login = async (req, res) => {
       mensaje: 'Usuario o Password incorrecto',
     });
   }
+};
+
+export const revalidarToken = async (req, response) => {
+  const { nombreUsuario } = req;
+  const token = await generarJWT(nombreUsuario);
+  response.status(200).json({
+    status: 'success',
+    msg: 'Token generado correctamente!',
+    res: {
+      nombreUsuario,
+      token,
+    },
+  });
 };
